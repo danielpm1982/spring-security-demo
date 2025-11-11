@@ -24,6 +24,13 @@ public class GlobalExceptionHandler {
         log.log(Level.WARNING, e::toString);
         return new ErrorResponse(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), e.getMessage());
     }
+    @ExceptionHandler(MyUnauthorizedErrorException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    ErrorResponse handleMyUnauthorizedException(MyUnauthorizedErrorException e){
+        log.log(Level.WARNING, e::toString);
+        return new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.name(), e.getMessage());
+    }
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
